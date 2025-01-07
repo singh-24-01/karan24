@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planning MLSD/AMSD</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #039BE5;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 1.5em;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        #main-content {
+            margin-left: 250px; /* Space for the sidebar */
+            padding: 20px;
+            padding-top: 70px; /* To avoid overlap with header */
+            transition: margin-left 0.3s;
+        }
+
+        .sidebar {
+            width: 250px;
+            position: fixed;
+            top: 70px; /* Align with the header */
+            left: -250px;
+            height: 100%;
+            background-color: #333;
+            overflow-y: auto;
+            transition: left 0.3s ease-in-out;
+            color: white;
+            padding-top: 20px;
+            z-index: 999;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            color: white;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .sidebar a:active {
+            background-color: #039BE5;
+        }
+
+        .sidebar .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        #toggle-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            background-color: #039BE5;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1001;
+        }
+
+        #toggle-btn::before {
+            content: '\2630'; /* Unicode for the hamburger icon */
+            font-size: 18px;
+        }
+
+        iframe {
+            display: block;
+            margin: 0 auto;
+            width: 80%;
+            height: 600px;
+            border: solid 1px #777;
+        }
+
+        @media screen and (max-width: 768px) {
+            #main-content {
+                margin-left: 0;
+            }
+
+            .sidebar {
+                width: 100%;
+                left: -100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>Planning MLSD/AMSD</header>
+
+<button id="toggle-btn"></button>
+
+<div class="sidebar" id="sidebar">
+    <span class="close-btn" id="close-btn">&times;</span>
+    <a href="#planning" class="sidebar-link">Planning</a>
+    <a href="#calendar" class="sidebar-link" onclick="showPdf()">Calendrier MLSD/AMSD</a>
+    <a href="#presentation" class="sidebar-link" onclick="showPresentation()">Présentation du Master</a>
+    <a href="#mlsd" class="sidebar-link">Description MLSD</a>
+    <a href="#amsd" class="sidebar-link">Description AMSD</a>
+    <a href="#plan" class="sidebar-link" onclick="showPlan()">Plan du bâtiment</a>
+    <a href="#courses" class="sidebar-link">Cours</a>
+    <a href="#terms" class="sidebar-link">Termes statistiques essentiels</a>
+</div>
+
+<div id="main-content">
+    <a id="planning"></a>
+    <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FParis&bgcolor=%23039BE5&title=M1%20MLSD-AMSD%202024-2025&showTabs=0&showCalendars=0&mode=WEEK&src=NmJlZmY2NWFkYTA2NjE4NDZmNzc0NDY3YzVjYjU4MTg5ZDBmZGMxYjM2NDAxY2NjNDdiZWFjODhiMDk5NDg2N0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23F6BF26&color=%234285F4" frameborder="0" scrolling="no"></iframe>
+</div>
+
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggle-btn');
+    const closeBtn = document.getElementById('close-btn');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    const sections = {
+        '#planning': '<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FParis&bgcolor=%23039BE5&title=M1%20MLSD-AMSD%202024-2025&showTabs=0&showCalendars=0&mode=WEEK&src=NmJlZmY2NWFkYTA2NjE4NDZmNzc0NDY3YzVjYjU4MTg5ZDBmZGMxYjM2NDAxY2NjNDdiZWFjODhiMDk5NDg2N0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23F6BF26&color=%234285F4" style="width: 80%; height: 600px;" frameborder="0"></iframe>',
+        '#calendar': '<iframe src="calendrier2024.png" style="width: 80%; height: 600px;" frameborder="0"></iframe>',
+        '#presentation': '<iframe src="M1_Presentation_Master_MLSD-AMSD-24-25-3.pdf" style="width: 100%; height: 100vh; margin: 0 auto;" frameborder="0"></iframe>',
+        '#plan': '<div style="display: flex; justify-content: center; align-items: center; height: 100vh;"><img src="Plan_salles.jpg" style="max-width: 100%; max-height: 100%;"></div>'
+    };
+
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = e.target.getAttribute('href');
+            if (sections[target]) {
+                document.getElementById('main-content').innerHTML = sections[target];
+            }
+            sidebar.style.left = '-100%';
+        });
+    });
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.style.left = '0';
+    });
+
+    closeBtn.addEventListener('click', () => {
+        sidebar.style.left = '-100%';
+    });
+
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            sidebar.style.left = '-100%';
+        });
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            sidebar.style.left = '0';
+        } else {
+            sidebar.style.left = '-100%';
+        }
+    });
+
+    function showPdf() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.innerHTML = `
+            <iframe src="calendrier2024.png" style="width: 100%; height: 100vh;" frameborder="0"></iframe>
+        `;
+        sidebar.style.left = '-100%'; // Close the sidebar
+    }
+</script>
+
+</body>
+</html>
