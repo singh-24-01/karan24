@@ -8,19 +8,21 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #e7f3ff; /* Light pastel blue */
+            color: #333; /* Dark gray for text */
         }
 
         header {
-            background-color: #039BE5;
+            background-color: #357edd; /* Medium blue */
             color: white;
             padding: 10px 20px;
             text-align: center;
-            font-size: 1.5em;
+            font-size: 1.2em; /* Reduced font size for mobile */
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         #main-content {
@@ -36,12 +38,13 @@
             top: 70px; /* Align with the header */
             left: -250px;
             height: 100%;
-            background-color: #333;
+            background-color: #2a5daa; /* Darker blue */
             overflow-y: auto;
             transition: left 0.3s ease-in-out;
             color: white;
             padding-top: 20px;
             z-index: 999;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar a {
@@ -53,11 +56,11 @@
         }
 
         .sidebar a:hover {
-            background-color: #575757;
+            background-color: #4a79d1; /* Brighter blue */
         }
 
         .sidebar a:active {
-            background-color: #039BE5;
+            background-color: #357edd; /* Medium blue */
         }
 
         .sidebar .close-btn {
@@ -73,13 +76,14 @@
             top: 20px;
             left: 20px;
             font-size: 24px;
-            background-color: #039BE5;
+            background-color: #357edd; /* Medium blue */
             color: white;
             border: none;
             padding: 10px 15px;
             cursor: pointer;
             border-radius: 5px;
             z-index: 1001;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         #toggle-btn::before {
@@ -90,12 +94,34 @@
         iframe {
             display: block;
             margin: 0 auto;
-            width: 80%;
-            height: 600px;
-            border: solid 1px #777;
+            width: 100%; /* Take the full width */
+            height: calc(100vh - 90px); /* Adjust height dynamically */
+            border: solid 1px #ccc; /* Neutral light gray border */
+            zoom: 100%; /* Ensures iframe content is not zoomed */
+        }
+
+        .info-message {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .info-message a {
+            color: #357edd;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .info-message a:hover {
+            text-decoration: underline;
         }
 
         @media screen and (max-width: 768px) {
+            header {
+                font-size: 1em; /* Smaller font size for header on mobile */
+                padding: 8px 15px;
+            }
             #main-content {
                 margin-left: 0;
             }
@@ -104,12 +130,16 @@
                 width: 100%;
                 left: -100%;
             }
+
+            iframe {
+                height: calc(100vh - 120px); /* Reduce height for mobile */
+            }
         }
     </style>
 </head>
 <body>
 
-<header>Planning MLSD/AMSD</header>
+<header>Master MLSD & AMSD - Université Paris Cité</header>
 
 <button id="toggle-btn"></button>
 
@@ -118,16 +148,15 @@
     <a href="#planning" class="sidebar-link">Planning</a>
     <a href="#calendar" class="sidebar-link" onclick="showPdf()">Calendrier MLSD/AMSD</a>
     <a href="#presentation" class="sidebar-link" onclick="showPresentation()">Présentation du Master</a>
-    <a href="#mlsd" class="sidebar-link">Description MLSD</a>
-    <a href="#amsd" class="sidebar-link">Description AMSD</a>
     <a href="#plan" class="sidebar-link" onclick="showPlan()">Plan du bâtiment</a>
-    <a href="#courses" class="sidebar-link">Cours</a>
-    <a href="#terms" class="sidebar-link">Termes statistiques essentiels</a>
 </div>
 
 <div id="main-content">
     <a id="planning"></a>
-    <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FParis&bgcolor=%23039BE5&title=M1%20MLSD-AMSD%202024-2025&showTabs=0&showCalendars=0&mode=WEEK&src=NmJlZmY2NWFkYTA2NjE4NDZmNzc0NDY3YzVjYjU4MTg5ZDBmZGMxYjM2NDAxY2NjNDdiZWFjODhiMDk5NDg2N0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23F6BF26&color=%234285F4" frameborder="0" scrolling="no"></iframe>
+    <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FParis&bgcolor=%23357edd&title=M1%20MLSD-AMSD%202024-2025&showTabs=0&showCalendars=0&mode=WEEK&src=NmJlZmY2NWFkYTA2NjE4NDZmNzc0NDY3YzVjYjU4MTg5ZDBmZGMxYjM2NDAxY2NjNDdiZWFjODhiMDk5NDg2N0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23F6BF26&color=%234285F4" frameborder="0" scrolling="no"></iframe>
+    <div class="info-message">
+        Si le calendrier ne s'affiche pas correctement, vous pouvez consulter l'emploi du temps mis à jour en cliquant <a href="https://docs.google.com/spreadsheets/d/1IhyeM39QryPrYvrWcEFiChPrkVHD4Sw3/edit?gid=51203610#gid=51203610" target="_blank">ici</a>.
+    </div>
 </div>
 
 <script>
@@ -136,10 +165,10 @@
     const closeBtn = document.getElementById('close-btn');
     const sidebarLinks = document.querySelectorAll('.sidebar-link');
     const sections = {
-        '#planning': '<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FParis&bgcolor=%23039BE5&title=M1%20MLSD-AMSD%202024-2025&showTabs=0&showCalendars=0&mode=WEEK&src=NmJlZmY2NWFkYTA2NjE4NDZmNzc0NDY3YzVjYjU4MTg5ZDBmZGMxYjM2NDAxY2NjNDdiZWFjODhiMDk5NDg2N0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23F6BF26&color=%234285F4" style="width: 80%; height: 600px;" frameborder="0"></iframe>',
-        '#calendar': '<iframe src="calendrier2024.png" style="width: 80%; height: 600px;" frameborder="0"></iframe>',
-        '#presentation': '<iframe src="M1_Presentation_Master_MLSD-AMSD-24-25-3.pdf" style="width: 100%; height: 100vh; margin: 0 auto;" frameborder="0"></iframe>',
-        '#plan': '<div style="display: flex; justify-content: center; align-items: center; height: 100vh;"><img src="Plan_salles.jpg" style="max-width: 100%; max-height: 100%;"></div>'
+        '#planning': '<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FParis&bgcolor=%23357edd&title=M1%20MLSD-AMSD%202024-2025&showTabs=0&showCalendars=0&mode=WEEK&src=NmJlZmY2NWFkYTA2NjE4NDZmNzc0NDY3YzVjYjU4MTg5ZDBmZGMxYjM2NDAxY2NjNDdiZWFjODhiMDk5NDg2N0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23F6BF26&color=%234285F4" style="width: 100%; height: calc(100vh - 90px); zoom: 100%;" frameborder="0"></iframe>',
+        '#calendar': '<iframe src="calendrier2024.png" style="width: 100%; height: calc(100vh - 90px); zoom: 100%;" frameborder="0"></iframe>',
+        '#presentation': '<iframe src="M1_Presentation_Master_MLSD-AMSD-24-25-3.pdf" style="width: 100%; height: calc(100vh - 90px); margin: 0 auto; zoom: 100%;" frameborder="0"></iframe>',
+        '#plan': '<div style="display: flex; justify-content: center; align-items: center; height: calc(100vh - 90px);"><img src="Plan_salles.jpg" style="max-width: 100%; max-height: 100%;"></div>'
     };
 
     sidebarLinks.forEach(link => {
@@ -178,7 +207,7 @@
     function showPdf() {
         const mainContent = document.getElementById('main-content');
         mainContent.innerHTML = `
-            <iframe src="calendrier2024.png" style="width: 100%; height: 100vh;" frameborder="0"></iframe>
+            <iframe src="calendrier2024.png" style="width: 100%; height: calc(100vh - 90px); zoom: 100%;" frameborder="0"></iframe>
         `;
         sidebar.style.left = '-100%'; // Close the sidebar
     }
